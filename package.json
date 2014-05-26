@@ -1,0 +1,25 @@
+{
+  "name": "frame-stream",
+  "version": "0.0.0",
+  "description": "",
+  "main": "lib/",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rkusa/frame-stream.git"
+  },
+  "author": "Markus Ast <npm.m@rkusa.st>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rkusa/frame-stream/issues"
+  },
+  "homepage": "https://github.com/rkusa/frame-stream",
+  "devDependencies": {
+    "eslint": "^0.6.2",
+    "gulp": "^3.6.2",
+    "gulp-eslint": "^0.1.7",
+    "gulp-mocha": "^0.4.1"
+  }
+}
