@@ -107,9 +107,7 @@ test('max length', function(done) {
   ws.end(msg)
 })
 
-test('framer', function(done) {
-  var framer = new frame.FramerStream
-
+test('length-prefixer', function(done) {
   var check = new stream.Transform()
   check._transform = function(buf, enc, cont) {
     assert.equal(buf.readInt32BE(0), 5)
@@ -117,8 +115,9 @@ test('framer', function(done) {
     done()
   }
 
-  framer.pipe(check)
-  framer.end('rkusa')
+  var prefixer = frame.prefix()
+  prefixer.pipe(check)
+  prefixer.end('rkusa')
 })
 
 var assert = require('assert')
