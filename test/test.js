@@ -1,3 +1,7 @@
+/*eslint-env node, mocha */
+
+'use strict'
+
 var stream = require('stream')
 var frame = require('../lib')
 
