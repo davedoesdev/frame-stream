@@ -107,6 +107,20 @@ test('max length', function(done) {
   ws.end(msg)
 })
 
+test('framer', function(done) {
+  var framer = new frame.FramerStream
+
+  var check = new stream.Transform()
+  check._transform = function(buf, enc, cont) {
+    assert.equal(buf.readInt32BE(0), 5)
+    assert.equal(buf.slice(4, 9).toString(), 'rkusa')
+    done()
+  }
+
+  framer.pipe(check)
+  framer.end('rkusa')
+})
+
 var assert = require('assert')
 
 function expect() {

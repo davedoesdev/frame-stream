@@ -34,6 +34,31 @@ This is an alias for `new frame.FrameStream(opts)`. The following options are av
 - **getLength** - The function used to read the prepended message size. This function defaults to `readInt8()`, `readInt16BE()` or `readInt32BE()` according to the `lengthSize`.
 - **maxSize** (default: 0)- The maximum allowed message size. This can be used to prevent denial-of-service attacks (`0` = turned off).
 
+### new frame.FramerStream(opts)
+
+This stream prepends each chunk/message with its length. The following options are available:
+
+- **lengthSize** (default: 4) - The length in bytes of the prepended message size.
+- **setLength** - The function used to write the prepended message size. This function defaults to `writeInt8()`, `writeInt16BE()` or `writeInt32BE()` according to the `lengthSize`.
+
+**Example:**
+
+```js
+var net = require('net')
+var frame = require('frame-stream')
+var socket = net.connect(port, function() {
+  var message = new Buffer('your message')
+
+  var framer = new frame.FramerStream()
+
+  framer.pipe(socket)
+        .pipe(frame())
+        .pipe(...)
+
+  framer.write(message)
+})
+```
+
 ## MIT License
 
 Copyright (c) 2014 Markus Ast

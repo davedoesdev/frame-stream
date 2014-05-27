@@ -1,6 +1,6 @@
 {
   "name": "frame-stream",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Stream of Length-prefix message framing for Node.js streams.",
   "keywords": ["socket", "tcp", "framing", "streams"],
   "main": "lib/",
