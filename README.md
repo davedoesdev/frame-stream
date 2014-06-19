@@ -1,11 +1,11 @@
 # frame-stream
 
-Stream of Length-prefix message framing for Node.js streams.
+Length-prefixed message framing for Node.js streams.
 
 [![NPM][npm]](https://npmjs.org/package/frame-stream)
-[![Build Status](travis)](http://travis-ci.org/rkusa/frame-stream)
+[![Build Status][travis]](http://travis-ci.org/rkusa/frame-stream)
 
-Some protocols, e.g. TCP, do not not guarantee to keep message boundaries. One common approach to distinguish such messages is *Length Prefixing*, which prepends each message with its length.
+Some protocols, e.g. TCP, do not not guarantee to keep message boundaries. One common approach to distinguish such messages is *Length Prefixing*, which prepends each message with its length. `frame-stream` accepts a stream with such length-prefixed messages and returns each frame on its own.
 
 ## Usage
 
@@ -49,7 +49,7 @@ var frame = require('frame-stream')
 var socket = net.connect(port, function() {
   var message = new Buffer('your message')
 
-  var prefixer = new frame.prefix()
+  var prefixer = frame.prefix()
 
   prefixer.pipe(socket)
           .pipe(frame())
@@ -69,5 +69,5 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-[npm]: https://badge.fury.io/js/frame-stream.svg
-[travis]: https://secure.travis-ci.org/rkusa/frame-stream.svg
+[npm]: http://img.shields.io/npm/v/frame-stream.svg?style=flat
+[travis]: http://img.shields.io/travis/rkusa/frame-stream.svg?style=flat
