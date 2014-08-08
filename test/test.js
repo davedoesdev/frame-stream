@@ -66,6 +66,20 @@ test('length split into parts', function(done) {
   ws.end()
 })
 
+test('unbuffered multiple frames in multiple chunks', function(done) {
+  var ws = expect('r', 'ku', 'sa', 'frame-', 'stream', done, { bufferChunks: false })
+
+  ws.write(message.slice(0, 5))
+  ws.write(message.slice(5, 7))
+  ws.write(message.slice(7, 19))
+  ws.write(message.slice(19, 25))
+  ws.end()
+
+  // TODO
+  // check the framePos and frameLength on each
+  // do unbuffered versions of all tests - split up tests into suites and/or files
+})
+
 test('zero length frame (e.g., keep-alive)', function(done) {
   var ws = expect(done)
 
@@ -109,7 +123,7 @@ test('max length', function(done) {
 
 test('length-prefixer', function(done) {
   var check = new stream.Transform()
-  check._transform = function(buf, enc, cont) {
+  check._transform = function(buf, enc) {
     assert.equal(buf.readInt32BE(0), 5)
     assert.equal(buf.slice(4, 9).toString(), 'rkusa')
     done()
@@ -125,6 +139,12 @@ var assert = require('assert')
 function expect() {
   var expectation = Array.prototype.slice.call(arguments)
   var callback = expectation.pop()
+  var opts
+
+  if (typeof callback !== 'function') {
+    opts = callback
+    callback = expectation.pop()
+  }
 
   var transform = new stream.Transform()
   var received = []
@@ -144,7 +164,7 @@ function expect() {
   }
 
   var ws = new stream.PassThrough
-  ws.pipe(frame())
+  ws.pipe(frame(opts))
     .pipe(transform)
 
   return ws
