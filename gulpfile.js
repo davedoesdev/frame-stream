@@ -6,7 +6,7 @@ gulp.task('default', ['lint', 'test'])
 
 var mocha = require('gulp-mocha')
 gulp.task('test', function() {
-  return gulp.src('test/test.js')
+  return gulp.src('test/*.js')
              .pipe(mocha({
                ui: 'tdd',
                reporter: 'spec'
