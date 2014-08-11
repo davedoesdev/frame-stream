@@ -3,8 +3,11 @@
 
 'use strict'
 
-suite('unbuffered', function()
-{
+var stream = require('stream')
+var frame = require('../lib')
+var assert = require('assert')
+
+suite('unbuffered', function() {
   test('complete frame in one chunk', function(done) {
     var ws = expect({ msg: 'rkusa', framePos: 0, frameLength: 5, frameEnd: true },
                     { msg: 'frame-stream', framePost: 0, frameLength: 12, frameEnd: true },
@@ -76,5 +79,45 @@ suite('unbuffered', function()
     ws.write(message.slice(11, 25))
     ws.end()
   })
+  
+  test('zero length frame (e.g., keep-alive)', function(done) {
+    var ws = expect(done, { unbuffered: true })
 
+    var msg = Buffer(4)
+    msg.writeInt32BE(0, 0)
+
+    ws.end(msg)
+  })
+
+  test('negative length', function(done) {
+    var ws = new stream.PassThrough
+
+    ws
+    .pipe(frame({ unbuffered: true }))
+    .on('error', function(err) {
+      assert.equal(err.message, 'Message length is less than zero')
+      done()
+    })
+
+    var msg = Buffer(4)
+    msg.writeInt32BE(-42, 0)
+
+    ws.end(msg)
+  })
+
+  test('max length', function(done) {
+    var ws = new stream.PassThrough
+
+    ws
+    .pipe(frame({ maxSize: 42, unbuffered: true }))
+    .on('error', function(err) {
+      assert.equal(err.message, 'Message is larger than the allowed maximum of 42')
+      done()
+    })
+
+    var msg = Buffer(4)
+    msg.writeInt32BE(43, 0)
+
+    ws.end(msg)
+  })
 })

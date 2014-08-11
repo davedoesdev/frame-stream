@@ -2,8 +2,7 @@
 
 Length-prefixed message framing for Node.js streams.
 
-[![NPM][npm]](https://npmjs.org/package/frame-stream)
-[![Build Status][travis]](http://travis-ci.org/rkusa/frame-stream)
+[![NPM][npm]](https://npmjs.org/package/frame-stream) [![Build Status][travis]](http://travis-ci.org/rkusa/frame-stream)
 
 Some protocols, e.g. TCP, do not not guarantee to keep message boundaries. One common approach to distinguish such messages is *Length Prefixing*, which prepends each message with its length. `frame-stream` accepts a stream with such length-prefixed messages and returns each frame on its own.
 
@@ -32,7 +31,11 @@ This is an alias for `new frame.FrameStream(opts)`. The following options are av
 
 - **lengthSize** (default: 4) - The length in bytes of the prepended message size.
 - **getLength** - The function used to read the prepended message size. This function defaults to `readInt8()`, `readInt16BE()` or `readInt32BE()` according to the `lengthSize`.
-- **maxSize** (default: 0)- The maximum allowed message size. This can be used to prevent denial-of-service attacks (`0` = turned off).
+- **maxSize** (default: 0) - The maximum allowed message size. This can be used to prevent denial-of-service attacks (`0` = turned off).
+- **unbuffered** (default: `false`) - Return parts of a message as they arrive, rather than buffering them up until the last part arrives. Useful when you know messages will be large. Each part will be a `Buffer` with the following extra properties:
+  - **framePos** - The index in the message where this part starts. Parts will be returned in order.
+  - **frameLength** - The total message size.
+  - **frameEnd** - A boolean indicating whether this is the last part of the message.
 
 ### frame.prefix(opts)
 

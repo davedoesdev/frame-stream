@@ -7,8 +7,7 @@ var stream = require('stream')
 var frame = require('../lib')
 var assert = require('assert')
 
-suite('buffered', function ()
-{
+suite('buffered', function () {
   test('complete frame in one chunk', function(done) {
     var ws = expect('rkusa', 'frame-stream', done)
 
@@ -98,18 +97,5 @@ suite('buffered', function ()
     msg.writeInt32BE(43, 0)
 
     ws.end(msg)
-  })
-
-  test('length-prefixer', function(done) {
-    var check = new stream.Transform()
-    check._transform = function(buf) {
-      assert.equal(buf.readInt32BE(0), 5)
-      assert.equal(buf.slice(4, 9).toString(), 'rkusa')
-      done()
-    }
-
-    var prefixer = frame.prefix()
-    prefixer.pipe(check)
-    prefixer.end('rkusa')
   })
 })
