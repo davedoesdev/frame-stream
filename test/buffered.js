@@ -58,6 +58,14 @@ suite('buffered', function () {
     ws.end()
   })
 
+  test('length on its own', function(done) {
+    var ws = expect('rkusa', 'frame-stream', done)
+
+    ws.write(message.slice(0, 4))
+    ws.write(message.slice(4, 25))
+    ws.end()
+  })
+
   test('zero length frame (e.g., keep-alive)', function(done) {
     var ws = expect(done)
 

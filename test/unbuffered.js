@@ -79,6 +79,17 @@ suite('unbuffered', function() {
     ws.write(message.slice(11, 25))
     ws.end()
   })
+
+  test('length on its own', function(done) {
+    var ws = expect({ msg: 'rkusa', framePos: 0, frameLength: 5, frameEnd: true },
+                    { msg: 'frame-stream', framePos: 0, frameLength: 12, frameEnd: true },
+                    done,
+                    { unbuffered: true })
+
+    ws.write(message.slice(0, 4))
+    ws.write(message.slice(4, 25))
+    ws.end()
+  })
   
   test('zero length frame (e.g., keep-alive)', function(done) {
     var ws = expect(done, { unbuffered: true })
