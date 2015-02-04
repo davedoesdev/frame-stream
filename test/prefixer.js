@@ -3,7 +3,7 @@
 'use strict'
 
 var stream = require('stream')
-var frame = require('../lib')
+var frame  = require('../lib')
 var assert = require('assert')
 
 suite('prefixer', function () {
@@ -15,8 +15,8 @@ suite('prefixer', function () {
       done()
     }
 
-    var prefixer = frame.prefix()
-    prefixer.pipe(check)
-    prefixer.end('rkusa')
+    var encode = frame.encode()
+    encode.pipe(check)
+    encode.end('rkusa')
   })
 })

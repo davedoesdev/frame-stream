@@ -4,7 +4,7 @@
 'use strict'
 
 var stream = require('stream')
-var frame = require('../lib')
+var frame  = require('../lib')
 var assert = require('assert')
 
 suite('unbuffered', function() {
@@ -90,11 +90,11 @@ suite('unbuffered', function() {
     ws.write(message.slice(4, 25))
     ws.end()
   })
-  
+
   test('zero length frame (e.g., keep-alive)', function(done) {
     var ws = expect(done, { unbuffered: true })
 
-    var msg = Buffer(4)
+    var msg = new Buffer(4)
     msg.writeInt32BE(0, 0)
 
     ws.end(msg)
@@ -104,13 +104,13 @@ suite('unbuffered', function() {
     var ws = new stream.PassThrough
 
     ws
-    .pipe(frame({ unbuffered: true }))
+    .pipe(frame.decode({ unbuffered: true }))
     .on('error', function(err) {
       assert.equal(err.message, 'Message length is less than zero')
       done()
     })
 
-    var msg = Buffer(4)
+    var msg = new Buffer(4)
     msg.writeInt32BE(-42, 0)
 
     ws.end(msg)
@@ -120,13 +120,13 @@ suite('unbuffered', function() {
     var ws = new stream.PassThrough
 
     ws
-    .pipe(frame({ maxSize: 42, unbuffered: true }))
+    .pipe(frame.decode({ maxSize: 42, unbuffered: true }))
     .on('error', function(err) {
       assert.equal(err.message, 'Message is larger than the allowed maximum of 42')
       done()
     })
 
-    var msg = Buffer(4)
+    var msg = new Buffer(4)
     msg.writeInt32BE(43, 0)
 
     ws.end(msg)

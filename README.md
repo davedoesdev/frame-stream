@@ -8,13 +8,13 @@ Some protocols, e.g. TCP, do not not guarantee to keep message boundaries. One c
 
 ## Usage
 
-Simply pipe an incoming (e.g. TCP) stream into `frame-stream`:
+Simply pipe an incoming (e.g. TCP) stream into `require('frame-stream').decode()`:
 
 ```js
 var net = require('net')
 var frame = require('frame-stream')
 var server = net.createServer(function(socket) {
-	socket.pipe(frame())
+	socket.pipe(frame.decode())
 })
 server.listen(port)
 ```
@@ -25,9 +25,9 @@ server.listen(port)
 var frame = require('frame-stream')
 ```
 
-### frame(opts)
+### frame.decode(opts)
 
-This is an alias for `new frame.FrameStream(opts)`. The following options are available:
+This is an alias for `new frame.Decoder(opts)`. The following options are available:
 
 - **lengthSize** (default: 4) - The length in bytes of the prepended message size.
 - **getLength** - The function used to read the prepended message size. This function defaults to `readInt8()`, `readInt16BE()` or `readInt32BE()` according to the `lengthSize`.
@@ -37,9 +37,9 @@ This is an alias for `new frame.FrameStream(opts)`. The following options are av
   - **frameLength** - The total message size.
   - **frameEnd** - A boolean indicating whether this is the last part of the message.
 
-### frame.prefix(opts)
+### frame.encode(opts)
 
-This is an alias for `new frame.LengthPrefixStream(opts)`. It prepends each chunk/message with its length. The following options are available:
+This is an alias for `new frame.Encoder(opts)`. It prepends each chunk/message with its length. The following options are available:
 
 - **lengthSize** (default: 4) - The length in bytes of the prepended message size.
 - **setLength** - The function used to write the prepended message size. This function defaults to `writeInt8()`, `writeInt16BE()` or `writeInt32BE()` according to the `lengthSize`.
@@ -52,19 +52,19 @@ var frame = require('frame-stream')
 var socket = net.connect(port, function() {
   var message = new Buffer('your message')
 
-  var prefixer = frame.prefix()
+  var encode = frame.encode()
 
-  prefixer.pipe(socket)
-          .pipe(frame())
-          .pipe(...)
+  encode.pipe(socket)
+        .pipe(frame())
+        .pipe(...)
 
-  prefixer.write(message)
+  encode.write(message)
 })
 ```
 
 ## MIT License
 
-Copyright (c) 2014 Markus Ast
+Copyright (c) 2014-2015 Markus Ast
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
