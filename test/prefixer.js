@@ -6,8 +6,8 @@ var stream = require('stream')
 var frame  = require('../lib')
 var assert = require('assert')
 
-suite('prefixer', function () {
-  test('length-prefixer', function(done) {
+suite('encoder', function () {
+  test('encode', function(done) {
     var check = new stream.Transform()
     check._transform = function(buf) {
       assert.equal(buf.readInt32BE(0), 5)
