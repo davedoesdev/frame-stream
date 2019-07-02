@@ -2,21 +2,24 @@
 
 var gulp = require('gulp')
 
-gulp.task('default', ['lint', 'test'])
-
 var mocha = require('gulp-mocha')
-gulp.task('test', function() {
+function test() {
   return gulp.src('test/*.js')
-             .pipe(mocha({
-               ui: 'tdd',
-               reporter: 'spec'
-             }))
-})
+    .pipe(mocha({
+      ui: 'tdd',
+      reporter: 'spec'
+    }))
+}
 
 var eslint = require('gulp-eslint')
-gulp.task('lint', function() {
+function lint() {
   return gulp.src(['lib/**/*.js', 'test/**/*.js', 'gulpfile.js'])
-             .pipe(eslint('eslint.json'))
-             .pipe(eslint.format())
-             .pipe(eslint.failOnError())
-})
+    .pipe(eslint('eslint.json'))
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError())
+}
+
+exports.test = test
+exports.lint = lint
+
+exports.default = gulp.series(lint, test)
