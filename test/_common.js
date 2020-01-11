@@ -11,7 +11,7 @@ var assert = require('assert')
 // Message 2: 12          f  r  a  m  e  -  s  t  r  e  a  m
 //            00 00 00 0c 66 72 61 6d 65 2d 73 74 72 65 61 6d
 
-var message = new Buffer(4 + 5 + 4 + 12)
+var message = Buffer.alloc(4 + 5 + 4 + 12)
 message.writeInt32BE(5, 0)
 message.write('rkusa', 4)
 message.writeInt32BE(12, 9)
