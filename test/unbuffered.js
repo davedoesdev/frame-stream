@@ -94,7 +94,7 @@ suite('unbuffered', function() {
   test('zero length frame (e.g., keep-alive)', function(done) {
     var ws = expect(done, { unbuffered: true })
 
-    var msg = new Buffer(4)
+    var msg = Buffer.alloc(4)
     msg.writeInt32BE(0, 0)
 
     ws.end(msg)
@@ -110,7 +110,7 @@ suite('unbuffered', function() {
       done()
     })
 
-    var msg = new Buffer(4)
+    var msg = Buffer.alloc(4)
     msg.writeInt32BE(-42, 0)
 
     ws.end(msg)
@@ -126,7 +126,7 @@ suite('unbuffered', function() {
       done()
     })
 
-    var msg = new Buffer(4)
+    var msg = Buffer.alloc(4)
     msg.writeInt32BE(43, 0)
 
     ws.end(msg)

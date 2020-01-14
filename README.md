@@ -50,7 +50,7 @@ This is an alias for `new frame.Encoder(opts)`. It prepends each chunk/message w
 var net = require('net')
 var frame = require('frame-stream')
 var socket = net.connect(port, function() {
-  var message = new Buffer('your message')
+  var message = Buffer.from('your message')
 
   var encode = frame.encode()
 
