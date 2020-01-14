@@ -79,7 +79,11 @@ suite('buffered', function () {
     var ws = new stream.PassThrough
 
     ws
-    .pipe(frame.decode())
+    .pipe(frame.decode({
+      getLength: function(buf) {
+        return buf.readInt32BE(0)
+      }
+    }))
     .on('error', function(err) {
       assert.equal(err.message, 'Message length is less than zero')
       done()
