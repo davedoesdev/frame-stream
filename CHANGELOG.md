@@ -8,3 +8,6 @@ Move the code for pushing encoded frame data to its own method `_pushFrameData` 
 
 Use unsigned ints by default for length.
 
+## 2.0.1
+
+Update example in README and add it to test suite.
