@@ -10,7 +10,7 @@ var assert = require('assert')
 suite('unbuffered', function() {
   test('complete frame in one chunk', function(done) {
     var ws = expect({ msg: 'rkusa', framePos: 0, frameLength: 5, frameEnd: true },
-                    { msg: 'frame-stream', framePost: 0, frameLength: 12, frameEnd: true },
+                    { msg: 'frame-stream', framePos: 0, frameLength: 12, frameEnd: true },
                     done,
                     { unbuffered: true })
 

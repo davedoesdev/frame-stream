@@ -2,21 +2,31 @@
 
 Length-prefixed message framing for Node.js streams.
 
-[![NPM][npm]](https://npmjs.org/package/frame-stream) [![Build Status][travis]](http://travis-ci.org/rkusa/frame-stream)
+[![NPM][npm]](https://npmjs.org/package/frame-stream) [![Build Status][travis]](http://travis-ci.org/davedoesdev/frame-stream)
 
 Some protocols, e.g. TCP, do not not guarantee to keep message boundaries. One common approach to distinguish such messages is *Length Prefixing*, which prepends each message with its length. `frame-stream` accepts a stream with such length-prefixed messages and returns each frame on its own.
 
 ## Usage
 
-Simply pipe an incoming (e.g. TCP) stream into `require('frame-stream').decode()`:
+Simply pipe an incoming (e.g. TCP) stream into `require('frame-stream').decode()` and pipe `require('frame-stream').encode()` into an outgoing stream:
 
 ```js
 var net = require('net')
 var frame = require('frame-stream')
-var server = net.createServer(function(socket) {
-	socket.pipe(frame.decode())
+var port = 30000
+
+net.createServer(function(socket) {
+  socket.pipe(frame.decode()).on('data', function(buf) {
+    console.log(buf.toString())
+  })
+}).listen(port, function() {
+  net.connect(port, function() {
+    var encode = frame.encode()
+    encode.pipe(this)
+    encode.write('hello world')
+    encode.end('cheerio!')
+  })
 })
-server.listen(port)
 ```
 
 ## API
@@ -44,27 +54,10 @@ This is an alias for `new frame.Encoder(opts)`. It prepends each chunk/message w
 - **lengthSize** (default: 4) - The length in bytes of the prepended message size.
 - **setLength** - The function used to write the prepended message size. This function defaults to `writeInt8()`, `writeInt16BE()` or `writeInt32BE()` according to the `lengthSize`.
 
-**Example:**
-
-```js
-var net = require('net')
-var frame = require('frame-stream')
-var socket = net.connect(port, function() {
-  var message = Buffer.from('your message')
-
-  var encode = frame.encode()
-
-  encode.pipe(socket)
-        .pipe(frame())
-        .pipe(...)
-
-  encode.write(message)
-})
-```
-
 ## MIT License
 
 Copyright (c) 2014-2015 Markus Ast
+Copyright (c) 2020 David Halls
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
