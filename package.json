@@ -9,6 +9,7 @@
     "streams"
   ],
   "main": "lib/",
+  "typings": "typings/index.d.ts",
   "scripts": {
     "test": "gulp test"
   },
