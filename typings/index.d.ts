@@ -9,7 +9,7 @@ export interface DecodeOptions {
 
     /**
      * The function used to read the prepended message size. This function defaults to `readInt8()`, `readInt16BE()`
-     * or `eadInt32BE()` according to the `lengthSize`.
+     * or `readInt32BE()` according to the `lengthSize`.
      */
     getLength?: (buffer: Buffer) => number;
 
