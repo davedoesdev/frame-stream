@@ -2,7 +2,7 @@
 
 Length-prefixed message framing for Node.js streams.
 
-[![NPM][npm]](https://npmjs.com/package/frame-stream) [![Build Status][travis]](https://travis-ci.org/davedoesdev/frame-stream)
+[![NPM][npm]](https://npmjs.com/package/frame-stream) ![CI status](https://github.com/davedoesdev/frame-stream/actions/workflows/ci.yml/badge.svg)
 
 Some protocols, e.g. TCP, do not not guarantee to keep message boundaries. One common approach to distinguish such messages is *Length Prefixing*, which prepends each message with its length. `frame-stream` accepts a stream with such length-prefixed messages and returns each frame on its own.
 
