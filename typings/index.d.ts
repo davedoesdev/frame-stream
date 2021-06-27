@@ -1,6 +1,6 @@
-  import { Transform } from "stream";
-  
-  export interface DecodeOptions {
+import { Transform } from "stream";
+
+export interface DecodeOptions {
     /**
      * The length in bytes of the prepended message size.
      * @default 4
@@ -29,9 +29,9 @@
      * @default false
      */
     unbuffered?: boolean;
-  }
+}
 
-  export interface EncodeOptions {
+export interface EncodeOptions {
     /**
      * The length in bytes of the prepended message size.
      * @default 4
@@ -43,22 +43,22 @@
      * `writeInt32BE()` according to the `lengthSize`.
      */
     setLength?: (buffer: Buffer, value: number) => number;
-  }
+}
 
-  export class Decoder extends Transform {
+export class Decoder extends Transform {
     constructor(opts?: DecodeOptions);
-  }
+}
 
-  export class Encoder extends Transform {
+export class Encoder extends Transform {
     constructor(opts?: EncodeOptions);
-  }
+}
 
-  /**
-   * This is an alias for `new frame.Decoder(opts)`
-   */
-  export function decode(opts?: DecodeOptions): Decoder;
+/**
+ * This is an alias for `new frame.Decoder(opts)`
+ */
+export function decode(opts?: DecodeOptions): Decoder;
 
-  /**
-   * This is an alias for `new frame.Encoder(opts)`
-   */
-  export function encode(opts?: EncodeOptions): Encoder;
+/**
+ * This is an alias for `new frame.Encoder(opts)`
+ */
+export function encode(opts?: EncodeOptions): Encoder;
