@@ -2,7 +2,7 @@
 
 Length-prefixed message framing for Node.js streams.
 
-[![NPM][npm]](https://npmjs.com/package/frame-stream) ![CI status](https://github.com/davedoesdev/frame-stream/actions/workflows/ci.yml/badge.svg)
+[![NPM][npm]](https://npmjs.com/package/frame-stream) [![CI status][ci]](https://github.com/davedoesdev/frame-stream/actions)
 
 Some protocols, e.g. TCP, do not not guarantee to keep message boundaries. One common approach to distinguish such messages is *Length Prefixing*, which prepends each message with its length. `frame-stream` accepts a stream with such length-prefixed messages and returns each frame on its own.
 
@@ -66,4 +66,4 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [npm]: http://img.shields.io/npm/v/frame-stream.svg?style=flat-square
-[travis]: http://img.shields.io/travis/davedoesdev/frame-stream.svg?style=flat-square
+[ci]: https://github.com/davedoesdev/frame-stream/actions/workflows/ci.yml/badge.svg
