@@ -1,6 +1,6 @@
 {
   "name": "frame-stream",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Length-prefixed message framing for Node.js streams.",
   "keywords": [
     "socket",
@@ -11,25 +11,24 @@
   "main": "lib/",
   "typings": "typings/index.d.ts",
   "scripts": {
-    "test": "gulp test"
+    "lint": "eslint lib/*.js test/*.js",
+    "test": "mocha -ui tdd"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/rkusa/frame-stream.git"
+    "url": "git://github.com/davedoesdev/frame-stream.git"
   },
   "author": "Markus Ast <npm.m@rkusa.st>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rkusa/frame-stream/issues"
+    "url": "https://github.com/davedoesdev/frame-stream/issues"
   },
-  "homepage": "https://github.com/rkusa/frame-stream",
+  "homepage": "https://github.com/davedoesdev/frame-stream",
   "devDependencies": {
-    "eslint": "^7.29.0",
-    "gulp": "^4.0.2",
-    "gulp-eslint": "^6.0.0",
-    "gulp-mocha": "^8.0.0"
+    "eslint": "^8.1.0",
+    "mocha": "^9.1.3"
   },
   "engines": {
-    "node": ">=5"
+    "node": ">=12"
   }
 }
