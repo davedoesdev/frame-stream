@@ -1,6 +1,6 @@
 {
   "name": "frame-stream",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "description": "Length-prefixed message framing for Node.js streams.",
   "keywords": [
     "socket",
@@ -25,10 +25,10 @@
   },
   "homepage": "https://github.com/davedoesdev/frame-stream",
   "devDependencies": {
-    "eslint": "^8.16.0",
-    "mocha": "^10.0.0"
+    "eslint": "^8.38.0",
+    "mocha": "^10.2.0"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   }
 }
